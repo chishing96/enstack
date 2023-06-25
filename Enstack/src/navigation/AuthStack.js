@@ -9,7 +9,7 @@ const OnboardingStack = createStackNavigator();
 
 const OnboardingStackScreen = () => {
   return (
-    <OnboardingStack.Navigator>
+    <OnboardingStack.Navigator screenOptions={{ headerShown: false }}>
       <OnboardingStack.Screen name="Get Started" component={GetStartedScreen} />
       <OnboardingStack.Screen name="Login">
         {(props) => <LoginScreen {...props} />}

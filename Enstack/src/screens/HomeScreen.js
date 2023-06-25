@@ -118,8 +118,18 @@ const HomeScreen = () => {
     );
   };
 
+  const handleCartPress = () => {
+    navigation.navigate("Cart");
+  };
+
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Home</Text>
+        <TouchableOpacity onPress={handleCartPress}>
+          <Ionicons name="cart-outline" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
       <FlatList
         data={filterData}
         renderItem={renderFilterItem}
@@ -212,6 +222,16 @@ const styles = StyleSheet.create({
   filterItemText: {
     fontSize: 14,
     color: "#333",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 16,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 

@@ -12,7 +12,7 @@ const HomeStack = createStackNavigator();
 
 const HomeStackScreen = () => {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="Home" component={HomeScreen} />
       <HomeStack.Screen name="Product" component={ProductDetailScreen} />
     </HomeStack.Navigator>
@@ -25,7 +25,7 @@ const AppStack = () => {
       initialRouteName="Home"
       activeColor="#f0edf6"
       inactiveColor="#3e2465"
-      barStyle={{ backgroundColor: "#694fad" }}
+      barStyle={{ backgroundColor: "white" }}
     >
       <Tab.Screen name="Home" component={HomeStackScreen} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
