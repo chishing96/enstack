@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import Loading from "../components/Loading";
 import useAuth from "../hooks/useAuth";
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
 
 import AppStack from "./AppStack";
 import AuthStack from "./AuthStack";

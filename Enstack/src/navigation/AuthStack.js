@@ -3,7 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../screens/LoginScreen";
 import SignupScreen from "../screens/SignupScreen";
 import GetStartedScreen from "../screens/GetStartedScreen";
-import HomeScreen from "../screens/HomeScreen";
 
 const OnboardingStack = createStackNavigator();
 

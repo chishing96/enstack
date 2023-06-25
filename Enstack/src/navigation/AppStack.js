@@ -6,15 +6,21 @@ import ProfileScreen from "../screens/ProfileScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import BellScreen from "../screens/BellScreen";
 import ProductDetailScreen from "../screens/ProductDetailScreen";
+import CartScreen from "../screens/CartScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 const HomeStack = createStackNavigator();
 
 const HomeStackScreen = () => {
   return (
-    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-      <HomeStack.Screen name="Home" component={HomeScreen} />
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
       <HomeStack.Screen name="Product" component={ProductDetailScreen} />
+      <HomeStack.Screen name="Cart" component={CartScreen} />
     </HomeStack.Navigator>
   );
 };
@@ -23,8 +29,8 @@ const AppStack = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      activeColor="#f0edf6"
-      inactiveColor="#3e2465"
+      activeColor="black"
+      inactiveColor="gray"
       barStyle={{ backgroundColor: "white" }}
     >
       <Tab.Screen name="Home" component={HomeStackScreen} />

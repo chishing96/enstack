@@ -106,46 +106,49 @@ const HomeScreen = () => {
     }
 
     return (
-      <TouchableOpacity
-        style={[
-          styles.filterItem,
-          activeFilter === item.label && styles.activeFilterItem,
-        ]}
-        onPress={() => applyFilter(item.label)}
-      >
-        {icon}
-      </TouchableOpacity>
+      <View style={{ alignSelf: "center" }}>
+        <TouchableOpacity
+          style={[
+            styles.filterItem,
+            activeFilter === item.label && styles.activeFilterItem,
+          ]}
+          onPress={() => applyFilter(item.label)}
+        >
+          {icon}
+        </TouchableOpacity>
+      </View>
     );
-  };
-
-  const handleCartPress = () => {
-    navigation.navigate("Cart");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Home</Text>
-        <TouchableOpacity onPress={handleCartPress}>
-          <Ionicons name="cart-outline" size={24} color="black" />
+        <TouchableOpacity onPress={() => console.log("Search icon pressed")}>
+          <Ionicons name="search" size={24} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>Home</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
+          <Ionicons name="cart" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={filterData}
-        renderItem={renderFilterItem}
-        keyExtractor={(item) => item.label}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.filterContainer}
-      />
-
-      <FlatList
-        data={filteredProducts}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.product_id}
-        numColumns={2}
-        columnWrapperStyle={styles.columnWrapper}
-      />
+      <View style={styles.filterView}>
+        <FlatList
+          data={filterData}
+          renderItem={renderFilterItem}
+          keyExtractor={(item) => item.label}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+      <View style={styles.productItemsView}>
+        <FlatList
+          data={filteredProducts}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.product_id}
+          numColumns={2}
+          columnWrapperStyle={styles.columnWrapper}
+        />
+      </View>
     </View>
   );
 };
@@ -157,7 +160,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    marginTop: 5,
+    backgroundColor: "white",
+  },
+  filterView: {
+    height: 80,
+  },
+  productItemsView: {
+    flex: 1,
   },
   itemContainer: {
     marginTop: 10,
@@ -203,15 +212,12 @@ const styles = StyleSheet.create({
   columnWrapper: {
     justifyContent: "space-between",
   },
-  filterContainer: {
-    marginBottom: 16,
-  },
   filterItem: {
     paddingHorizontal: 12,
     paddingVertical: 8,
     maxHeight: 45,
     minHeight: 45,
-    marginRight: 12,
+    margin: 5,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#ccc",
@@ -225,9 +231,12 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
+    justifyContent: "space-around",
+    alignContent: "space-around",
     alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    width: windowWidth,
   },
   title: {
     fontSize: 18,
