@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -17,6 +17,7 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { CartContext } from "../contexts/CartContext";
 
 const filterData = [
   { label: "Popular" },
@@ -29,6 +30,13 @@ const filterData = [
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [activeFilter, setActiveFilter] = useState("");
+  const { cartItems } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
+  // const [cartItems, setCartItems] = useState([]);
+  const cartItemCount = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
   const applyFilter = (filter) => {
     setActiveFilter(filter);
@@ -62,7 +70,10 @@ const HomeScreen = () => {
           style={styles.itemImage}
           resizeMode="cover"
         />
-        <TouchableOpacity style={styles.addToCartButton}>
+        <TouchableOpacity
+          onPress={() => addToCart(item)}
+          style={styles.addToCartButton}
+        >
           <FontAwesome name="shopping-bag" size={16} color="black" />
         </TouchableOpacity>
       </TouchableOpacity>
@@ -105,6 +116,10 @@ const HomeScreen = () => {
         break;
     }
 
+    const onPressCartScreen = ({ cartItems }) => {
+      console.log(cartItems);
+    };
+
     return (
       <View style={{ alignSelf: "center" }}>
         <TouchableOpacity
@@ -127,8 +142,18 @@ const HomeScreen = () => {
           <Ionicons name="search" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Home</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log(cartItems);
+            navigation.navigate("Cart", { cartItems });
+          }}
+        >
           <Ionicons name="cart" size={24} color="black" />
+          {cartItemCount > 0 && (
+            <View style={styles.cartCountContainer}>
+              <Text style={styles.cartCountText}>{cartItemCount}</Text>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.filterView}>
@@ -240,6 +265,22 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
+    fontWeight: "bold",
+  },
+  cartCountContainer: {
+    position: "absolute",
+    top: -10,
+    right: -10,
+    backgroundColor: "red",
+    borderRadius: 10,
+    width: 20,
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cartCountText: {
+    color: "white",
+    fontSize: 12,
     fontWeight: "bold",
   },
 });
