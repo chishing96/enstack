@@ -6,12 +6,24 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { productItemsData } from "../data/items";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+
+  const filteredProducts = productItemsData
+    .filter((item) => item.rating >= 4) // Filter by ratings >= 4
+    .sort((a, b) => {
+      if (a.priority !== b.priority) {
+        //this sort compares the priority property first, and
+        return a.priority - b.priority; // Sort by priority (lower number, higher priority)
+      }
+      return a.name.localeCompare(b.name); // Finally, Sort alphabetically by name
+    });
+
   const renderItem = ({ item }) => (
     <View>
       <TouchableOpacity
@@ -39,14 +51,18 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={productItemsData}
+        data={filteredProducts}
         renderItem={renderItem}
         keyExtractor={(item) => item.product_id}
         numColumns={2}
+        columnWrapperStyle={styles.columnWrapper}
       />
     </View>
   );
 };
+
+const windowWidth = Dimensions.get("window").width;
+const itemWidth = windowWidth / 2 - 5;
 
 const styles = StyleSheet.create({
   container: {
@@ -59,9 +75,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   itemImage: {
-    width: 170,
-    height: 260,
-    margin: 5,
+    width: itemWidth - 32,
+    height: 250,
+    margin: 10,
     borderRadius: 10,
   },
   productDetailsView: {
@@ -84,13 +100,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     paddingVertical: 8,
     paddingHorizontal: 12,
-    marginRight: 10,
-    marginBottom: 10,
+    marginRight: 15,
+    marginBottom: 15,
     backgroundColor: "rgba(0, 0, 0, 0.7)",
     zIndex: 1,
   },
   addToCartButtonText: {
     color: "#fff",
+  },
+  columnWrapper: {
+    justifyContent: "space-between",
   },
 });
 
