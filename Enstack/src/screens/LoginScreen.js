@@ -9,10 +9,12 @@ import {
   Linking,
 } from "react-native";
 import useAuth from "../hooks/useAuth";
+import { useNavigation } from "@react-navigation/native";
 
-const LoginScreen = ({ navigation }) => {
-  const auth = useAuth();
+const LoginScreen = () => {
   const { login } = useAuth();
+  const navigation = useNavigation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [attempts, setAttempts] = useState(0);
@@ -81,6 +83,10 @@ const LoginScreen = ({ navigation }) => {
     Linking.openURL("https://google.com");
   };
 
+  const handleSignup = () => {
+    navigation.navigate("Signup");
+  };
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Email:</Text>
@@ -123,6 +129,7 @@ const LoginScreen = ({ navigation }) => {
       <TouchableOpacity onPress={handleForgotPassword}>
         <Text>Forgot password?</Text>
       </TouchableOpacity>
+      <Button title="Sign up" onPress={handleSignup} />
     </View>
   );
 };
