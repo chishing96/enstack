@@ -20,7 +20,7 @@ import armchair3 from "../../assets/armchair3.jpeg";
 
 export const productItemsData = [
   {
-    type: "chair",
+    type: "Lamp",
     name: "Black Simple Lamp",
     price: 12.0,
     main_image: mainLampImage,
@@ -33,11 +33,11 @@ export const productItemsData = [
     stock: 5,
   },
   {
-    type: "table",
+    type: "Table",
     name: "Black Simple Table",
     price: 12.61,
-    main_image: mainChairImage,
-    product_images: [chair2, chair3],
+    main_image: mainTableImage,
+    product_images: [table2, table3],
     priority: 1,
     product_id: "00000002",
     description: "Lorem Ipsum...",
@@ -46,7 +46,7 @@ export const productItemsData = [
     stock: 50,
   },
   {
-    type: "armchair",
+    type: "Chair",
     name: "Black Simple Armchair",
     price: 1.61,
     main_image: mainArmChairImage,
@@ -59,7 +59,7 @@ export const productItemsData = [
     stock: 0,
   },
   {
-    type: "bed",
+    type: "Bed",
     name: "Black Simple Bed",
     price: 2.61,
     main_image: mainBedImage,
@@ -72,7 +72,7 @@ export const productItemsData = [
     stock: 2,
   },
   {
-    type: "chair",
+    type: "Chair",
     name: "White Simple Chair",
     price: 99.0,
     main_image: mainChairImage,
@@ -85,7 +85,7 @@ export const productItemsData = [
     stock: 0,
   },
   {
-    type: "table",
+    type: "Table",
     name: "White Simple Table",
     price: 80.0,
     main_image: mainTableImage,
@@ -98,7 +98,7 @@ export const productItemsData = [
     stock: 2,
   },
   {
-    type: "armchair",
+    type: "Chair",
     name: "White Simple Armchair",
     price: 1000000.5,
     main_image: mainArmChairImage,

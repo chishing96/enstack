@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,18 +10,45 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { productItemsData } from "../data/items";
+import {
+  Ionicons,
+  MaterialIcons,
+  FontAwesome5,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+
+const filterData = [
+  { label: "Popular" },
+  { label: "Chair" },
+  { label: "Table" },
+  { label: "Lamp" },
+  { label: "Bed" },
+];
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [activeFilter, setActiveFilter] = useState("");
+
+  const applyFilter = (filter) => {
+    setActiveFilter(filter);
+  };
 
   const filteredProducts = productItemsData
-    .filter((item) => item.rating >= 4) // Filter by ratings >= 4
-    .sort((a, b) => {
-      if (a.priority !== b.priority) {
-        //this sort compares the priority property first, and
-        return a.priority - b.priority; // Sort by priority (lower number, higher priority)
+    .filter((item) => {
+      if (activeFilter === "") {
+        return true;
       }
-      return a.name.localeCompare(b.name); // Finally, Sort alphabetically by name
+      if (activeFilter === "Popular") {
+        return item.rating >= 4;
+      }
+      return item.type === activeFilter;
+    })
+    .sort((a, b) => {
+      if (activeFilter === "Popular") {
+        return b.ratings - a.ratings;
+      }
+      return a.name.localeCompare(b.name);
     });
 
   const renderItem = ({ item }) => (
@@ -36,7 +63,7 @@ const HomeScreen = () => {
           resizeMode="cover"
         />
         <TouchableOpacity style={styles.addToCartButton}>
-          <Text style={styles.addToCartButtonText}>C</Text>
+          <FontAwesome name="shopping-bag" size={16} color="black" />
         </TouchableOpacity>
       </TouchableOpacity>
       <View>
@@ -48,8 +75,60 @@ const HomeScreen = () => {
     </View>
   );
 
+  const renderFilterItem = ({ item }) => {
+    let icon = null;
+    switch (item.label) {
+      case "Popular":
+        icon = <MaterialIcons name="star" size={24} color="black" />;
+        break;
+      case "Chair":
+        icon = <FontAwesome5 name="chair" size={24} color="black" />;
+        break;
+      case "Table":
+        icon = (
+          <MaterialCommunityIcons
+            name="table-furniture"
+            size={24}
+            color="black"
+          />
+        );
+        break;
+      case "Lamp":
+        icon = (
+          <MaterialCommunityIcons name="floor-lamp" size={24} color="black" />
+        );
+        break;
+      case "Bed":
+        icon = <Ionicons name="bed-outline" size={24} color="black" />;
+        break;
+      default:
+        break;
+    }
+
+    return (
+      <TouchableOpacity
+        style={[
+          styles.filterItem,
+          activeFilter === item.label && styles.activeFilterItem,
+        ]}
+        onPress={() => applyFilter(item.label)}
+      >
+        {icon}
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
+      <FlatList
+        data={filterData}
+        renderItem={renderFilterItem}
+        keyExtractor={(item) => item.label}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.filterContainer}
+      />
+
       <FlatList
         data={filteredProducts}
         renderItem={renderItem}
@@ -68,6 +147,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    marginTop: 5,
   },
   itemContainer: {
     marginTop: 10,
@@ -76,7 +156,7 @@ const styles = StyleSheet.create({
   },
   itemImage: {
     width: itemWidth - 32,
-    height: 250,
+    height: 200,
     margin: 10,
     borderRadius: 10,
   },
@@ -84,14 +164,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   itemName: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 14,
+    fontWeight: "500",
     marginBottom: 8,
     maxWidth: 150,
+    color: "#888",
   },
   itemPrice: {
     fontSize: 14,
-    color: "#888",
+    fontWeight: "bold",
     marginBottom: 8,
   },
   addToCartButton: {
@@ -102,7 +183,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginRight: 15,
     marginBottom: 15,
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    backgroundColor: "rgba(238,238,228,0.5)",
+    borderRadius: 7,
     zIndex: 1,
   },
   addToCartButtonText: {
@@ -110,6 +192,26 @@ const styles = StyleSheet.create({
   },
   columnWrapper: {
     justifyContent: "space-between",
+  },
+  filterContainer: {
+    marginBottom: 16,
+  },
+  filterItem: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    maxHeight: 45,
+    minHeight: 45,
+    marginRight: 12,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ccc",
+  },
+  activeFilterItem: {
+    backgroundColor: "#ccc",
+  },
+  filterItemText: {
+    fontSize: 14,
+    color: "#333",
   },
 });
 
