@@ -1,17 +1,11 @@
-import { NavigationContainer } from "@react-navigation/native";
-import MyTabs from "./src/navigation/BottomTabs";
-import Onboarding from "./src/navigation/Onboarding";
-
-const getAuthenticationStatus = () => {
-  return false;
-};
+import React from "react";
+import { Router } from "./src/navigation/Router";
+import { AuthProvider } from "./src/contexts/AuthContext";
 
 export default function App() {
-  const isAuthenticated = getAuthenticationStatus();
-
   return (
-    <NavigationContainer>
-      {isAuthenticated ? <MyTabs /> : <Onboarding />}
-    </NavigationContainer>
+    <AuthProvider>
+      <Router />
+    </AuthProvider>
   );
 }

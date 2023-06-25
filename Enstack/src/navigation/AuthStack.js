@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../screens/LoginScreen";
 import SignupScreen from "../screens/SignupScreen";
 import GetStartedScreen from "../screens/GetStartedScreen";
+import HomeScreen from "../screens/HomeScreen";
 
 const OnboardingStack = createStackNavigator();
 
@@ -10,14 +11,16 @@ const OnboardingStackScreen = () => {
   return (
     <OnboardingStack.Navigator>
       <OnboardingStack.Screen name="Get Started" component={GetStartedScreen} />
-      <OnboardingStack.Screen name="Home" component={LoginScreen} />
-      <OnboardingStack.Screen name="Product" component={SignupScreen} />
+      <OnboardingStack.Screen name="Login">
+        {(props) => <LoginScreen {...props} />}
+      </OnboardingStack.Screen>
+      <OnboardingStack.Screen name="Signup" component={SignupScreen} />
     </OnboardingStack.Navigator>
   );
 };
 
-const Onboarding = () => {
+const AuthStack = () => {
   return <OnboardingStackScreen />;
 };
 
-export default Onboarding;
+export default AuthStack;

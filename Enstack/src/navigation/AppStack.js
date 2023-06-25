@@ -19,7 +19,7 @@ const HomeStackScreen = () => {
   );
 };
 
-const MyTabs = () => {
+const AppStack = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -35,4 +35,4 @@ const MyTabs = () => {
   );
 };
 
-export default MyTabs;
+export default AppStack;
