@@ -10,8 +10,10 @@ import {
 } from "react-native";
 import { CartContext } from "../contexts/CartContext";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const CartScreen = () => {
+  const navigation = useNavigation();
   const {
     cartItems,
     removeFromCart,
@@ -28,7 +30,16 @@ const CartScreen = () => {
     // Navigate to the success screen or perform other operations
     // ...
     console.log("Checkout button pressed");
+    navigation.navigate("OrderSuccess");
   };
+
+  if (cartItems.length === 0) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>No items as of the moment</Text>
+      </View>
+    );
+  }
 
   const renderItem = ({ item }) => {
     return (

@@ -7,6 +7,7 @@ import FavoritesScreen from "../screens/FavoritesScreen";
 import BellScreen from "../screens/BellScreen";
 import ProductDetailScreen from "../screens/ProductDetailScreen";
 import CartScreen from "../screens/CartScreen";
+import OrderSuccessScreen from "../screens/OrderSuccessScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 const HomeStack = createStackNavigator();
@@ -21,6 +22,7 @@ const HomeStackScreen = () => {
       />
       <HomeStack.Screen name="Product" component={ProductDetailScreen} />
       <HomeStack.Screen name="Cart" component={CartScreen} />
+      <HomeStack.Screen name="OrderSuccess" component={OrderSuccessScreen} />
     </HomeStack.Navigator>
   );
 };

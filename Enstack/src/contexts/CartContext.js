@@ -38,6 +38,10 @@ export const CartProvider = ({ children }) => {
     setCartItems(updatedCartItems);
   };
 
+  const clearCart = () => {
+    setCartItems([]); // Clear all items by setting an empty array
+  };
+
   const incrementQuantity = (itemId) => {
     const updatedCart = cartItems.map((item) => {
       if (item.product_id === itemId) {
@@ -77,6 +81,7 @@ export const CartProvider = ({ children }) => {
         decrementQuantity,
         incrementQuantity,
         getTotalPrice,
+        clearCart,
       }}
     >
       {children}

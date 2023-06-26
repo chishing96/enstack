@@ -18,6 +18,15 @@ const FavoritesScreen = () => {
     addToCart(item);
     Alert.alert(`Item ${item.name} has been added to cart.`);
   };
+
+  if (favoriteItems.length === 0) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>No favorites as of the moment</Text>
+      </View>
+    );
+  }
+
   const renderFavoriteItem = ({ item }) => (
     <View
       style={{ flexDirection: "row", alignItems: "center", marginBottom: 16 }}

@@ -99,11 +99,17 @@ const ProductDetailScreen = ({ route }) => {
           </Text>
         </View>
       </View>
-      <View style={{ flexDirection: "row" }}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          alignSelf: "center",
+          alignItems: "center",
+        }}
+      >
         <TouchableOpacity
           onPress={toggleFavorite}
           style={{
-            width: 150,
             backgroundColor: isFavorite ? "red" : "gold",
             padding: 8,
             borderRadius: 8,
@@ -112,9 +118,6 @@ const ProductDetailScreen = ({ route }) => {
           }}
         >
           <Ionicons name="ribbon" size={24} color="black" />
-          <Text style={{ fontSize: 16, marginLeft: 8 }}>
-            {isFavorite ? "Remove from favorites" : "Add to favorites"}
-          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
