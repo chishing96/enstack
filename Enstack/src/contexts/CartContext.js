@@ -28,6 +28,7 @@ export const CartProvider = ({ children }) => {
       // Item is not in the cart, add it as a new item
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
     }
+    updateTotalPrice(getTotalPrice());
   };
 
   const addAllToCart = (items) => {
@@ -92,6 +93,11 @@ export const CartProvider = ({ children }) => {
     return totalPrice;
   };
 
+  const updateTotalPrice = (newTotalPrice) => {
+    // Implement the logic to update the totalPrice state here
+    // ...
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -103,6 +109,7 @@ export const CartProvider = ({ children }) => {
         getTotalPrice,
         clearCart,
         addAllToCart,
+        updateTotalPrice,
       }}
     >
       {children}

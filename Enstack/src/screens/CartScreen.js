@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   View,
   FlatList,
@@ -21,10 +21,41 @@ const CartScreen = () => {
     incrementQuantity,
     decrementQuantity,
     getTotalPrice,
+    updateTotalPrice,
   } = useContext(CartContext);
   const [discountCode, setDiscountCode] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [discountApplied, setDiscountApplied] = useState(false); // Track whether a discount has been applied
 
-  const totalPrice = getTotalPrice();
+  useEffect(() => {
+    // Update the totalPrice when cartItems change
+    const updatedTotalPrice = getTotalPrice();
+    setTotalPrice(updatedTotalPrice);
+  }, [cartItems]);
+
+  // const totalPrice = getTotalPrice();
+
+  const applyDiscountCode = () => {
+    if (discountApplied) {
+      Alert.alert("Discount already applied");
+      return;
+    }
+
+    const discountPattern = /^DISCOUNT(\d{2})$/;
+    if (discountPattern.test(discountCode)) {
+      const discountPercentage = parseInt(discountCode.slice(8));
+      if (discountPercentage >= 1 && discountPercentage <= 100) {
+        const discountAmount = (totalPrice * discountPercentage) / 100;
+        const discountedPrice = totalPrice - discountAmount;
+        setTotalPrice(discountedPrice);
+        setDiscountApplied(true); // Mark discount as applied
+      } else {
+        Alert.alert("Invalid code");
+      }
+    } else {
+      Alert.alert("Invalid code");
+    }
+  };
 
   const handleCheckout = () => {
     // Perform any necessary actions for the checkout process
@@ -99,7 +130,7 @@ const CartScreen = () => {
         />
         <TouchableOpacity
           style={styles.applyButton}
-          onPress={() => Alert.alert("Under maintenance.")}
+          onPress={applyDiscountCode}
         >
           <Text style={styles.applyButtonText}>Apply</Text>
         </TouchableOpacity>
