@@ -9,11 +9,11 @@ export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <AuthProvider>
-        <CartProvider>
-          <FavoriteProvider>
+        <FavoriteProvider>
+          <CartProvider>
             <Router />
-          </FavoriteProvider>
-        </CartProvider>
+          </CartProvider>
+        </FavoriteProvider>
       </AuthProvider>
     </SafeAreaView>
   );

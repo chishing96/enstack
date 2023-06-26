@@ -14,7 +14,13 @@ import { CartContext } from "../contexts/CartContext";
 
 const FavoritesScreen = () => {
   const { favoriteItems, removeFromFavorites } = useContext(FavoriteContext);
-  const { addToCart } = useContext(CartContext);
+  const { addToCar, addAllToCart } = useContext(CartContext);
+
+  const handleAddAllToCart = () => {
+    addAllToCart(favoriteItems);
+    Alert.alert("Added all items to the cart");
+  };
+
   const handleAddToCart = (item) => {
     addToCart(item);
     Alert.alert(`Item ${item.name} has been added to cart.`);
@@ -61,7 +67,7 @@ const FavoritesScreen = () => {
         <View>
           <Button
             title="Add all to cart"
-            onPress={() => Alert.alert("Under maintenance.")}
+            onPress={() => handleAddAllToCart()}
           />
         </View>
       </View>
