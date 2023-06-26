@@ -12,7 +12,6 @@ import {
 import useAuth from "../hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-paper";
-import { AntDesign } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
