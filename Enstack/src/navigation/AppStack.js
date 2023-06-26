@@ -8,6 +8,7 @@ import BellScreen from "../screens/BellScreen";
 import ProductDetailScreen from "../screens/ProductDetailScreen";
 import CartScreen from "../screens/CartScreen";
 import OrderSuccessScreen from "../screens/OrderSuccessScreen";
+import { SafeAreaView } from "react-native";
 
 const Tab = createMaterialBottomTabNavigator();
 const HomeStack = createStackNavigator();
@@ -29,17 +30,19 @@ const HomeStackScreen = () => {
 
 const AppStack = () => {
   return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      activeColor="black"
-      inactiveColor="gray"
-      barStyle={{ backgroundColor: "white" }}
-    >
-      <Tab.Screen name="Home" component={HomeStackScreen} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} />
-      <Tab.Screen name="Bell" component={BellScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-    </Tab.Navigator>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Tab.Navigator
+        initialRouteName="Home"
+        activeColor="black"
+        inactiveColor="gray"
+        barStyle={{ backgroundColor: "white" }}
+      >
+        <Tab.Screen name="Home" component={HomeStackScreen} />
+        <Tab.Screen name="Favorites" component={FavoritesScreen} />
+        <Tab.Screen name="Bell" component={BellScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
+    </SafeAreaView>
   );
 };
 
