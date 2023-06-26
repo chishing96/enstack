@@ -2,14 +2,20 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  TextInput,
   Button,
   TouchableOpacity,
   StyleSheet,
   Linking,
+  ImageBackground,
+  Dimensions,
 } from "react-native";
 import useAuth from "../hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
+import { TextInput } from "react-native-paper";
+import { AntDesign } from "@expo/vector-icons";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 const LoginScreen = () => {
   const { login } = useAuth();
@@ -17,6 +23,8 @@ const LoginScreen = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [isPasswordSecure, setIsPasswordSecure] = useState(true);
   const [attempts, setAttempts] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [invalidCredentialsMessage, setInvalidCredentialMessage] = useState("");
@@ -89,55 +97,139 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Email:</Text>
-      <TextInput
-        style={{ height: 40, width: 200, borderColor: "gray", borderWidth: 1 }}
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-        keyboardType="email-address"
-      />
-      <Text>Password:</Text>
-      <TextInput
-        style={{ height: 40, width: 200, borderColor: "gray", borderWidth: 1 }}
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry
-      />
-      <Button
-        title="Login"
-        onPress={handleLogin}
-        disabled={disableLogin || isLoading}
-      />
-      {attempts > 0 ? (
-        <Text style={{ color: "red" }}>{invalidCredentialsMessage}</Text>
-      ) : (
-        <></>
-      )}
-
-      {disableLogin && (
-        <View>
-          {countdown > 0 ? (
-            <View style={{ alignItems: "center" }}>
-              <Text style={{ color: "red" }}>{errorMessage}</Text>
-              <Text>{`Try again in ${countdown} seconds`}</Text>
-            </View>
-          ) : (
-            <></>
-          )}
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <ImageBackground
+          source={require("../../assets/headerLogin.png")}
+          style={styles.headerImage}
+        />
+        <View style={styles.headerTextView}>
+          <Text style={styles.textHello}>Hello!</Text>
+          <Text style={styles.textWelcome}>WELCOME BACK</Text>
         </View>
-      )}
-      <TouchableOpacity onPress={handleForgotPassword}>
-        <Text>Forgot password?</Text>
-      </TouchableOpacity>
-      <Button title="Sign up" onPress={handleSignup} />
+      </View>
+
+      <View
+        style={styles.formView}
+        shadowOffset={{ height: 10 }}
+        shadowColor="black"
+        shadowOpacity={0.1}
+      >
+        <TextInput
+          style={styles.emailTextInput}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          keyboardType="email-address"
+          mode="outlined"
+          label={"Email"}
+        />
+        <TextInput
+          style={styles.passwordTextInput}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry={isPasswordSecure}
+          mode="outlined"
+          label={"Password"}
+          right={
+            <TextInput.Icon
+              icon={"eye"}
+              iconColor="black"
+              size={20}
+              onPress={() => {
+                isPasswordSecure
+                  ? setIsPasswordSecure(false)
+                  : setIsPasswordSecure(true);
+              }}
+            />
+          }
+        />
+        <TouchableOpacity style={{ margin: 15 }} onPress={handleForgotPassword}>
+          <Text>Forgot password?</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleLogin}
+          disabled={disableLogin || isLoading}
+          style={styles.loginButton}
+        >
+          <Text style={styles.loginText}>Log in</Text>
+        </TouchableOpacity>
+        {attempts > 0 ? (
+          <Text style={{ color: "red" }}>{invalidCredentialsMessage}</Text>
+        ) : (
+          <></>
+        )}
+
+        {disableLogin && (
+          <View>
+            {countdown > 0 ? (
+              <View style={{ alignItems: "center" }}>
+                <Text style={{ color: "red" }}>{errorMessage}</Text>
+                <Text>{`Try again in ${countdown} seconds`}</Text>
+              </View>
+            ) : (
+              <></>
+            )}
+          </View>
+        )}
+
+        <Button title="Sign up" onPress={handleSignup} color={"black"} />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+  },
+  headerContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: 300,
+  },
+  headerImage: { width: "100%", height: 100 },
+  headerTextView: { justifyContent: "center", alignItems: "center" },
+  textHello: { fontSize: 42, fontWeight: "bold" },
+  textWelcome: { fontSize: 38, fontWeight: "bold" },
+  formView: {
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    width: windowWidth - 40,
+    height: 300,
+  },
   loginForm: {
     alignItems: "center",
+  },
+  emailTextInput: {
+    height: 40,
+    width: 200,
+    margin: 5,
+    width: "80%",
+  },
+  passwordTextInput: {
+    margin: 5,
+    height: 40,
+    width: "80%",
+  },
+  loginButton: {
+    width: "80%",
+    alignSelf: "center",
+    justifyContent: "center",
+    backgroundColor: "#28282B",
+    height: 50,
+    borderRadius: 5,
+  },
+  loginText: {
+    fontSize: 20,
+    fontWeight: "400",
+    color: "white",
+    alignSelf: "center",
   },
   headerLogin: {
     alignItems: "center",
