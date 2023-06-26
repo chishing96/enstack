@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   FlatList,
@@ -6,13 +6,29 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  TextInput,
 } from "react-native";
 import { CartContext } from "../contexts/CartContext";
 import { Ionicons } from "@expo/vector-icons";
 
 const CartScreen = () => {
-  const { cartItems, removeFromCart, incrementQuantity, decrementQuantity } =
-    useContext(CartContext);
+  const {
+    cartItems,
+    removeFromCart,
+    incrementQuantity,
+    decrementQuantity,
+    getTotalPrice,
+  } = useContext(CartContext);
+  const [discountCode, setDiscountCode] = useState("");
+
+  const totalPrice = getTotalPrice();
+
+  const handleCheckout = () => {
+    // Perform any necessary actions for the checkout process
+    // Navigate to the success screen or perform other operations
+    // ...
+    console.log("Checkout button pressed");
+  };
 
   const renderItem = ({ item }) => {
     return (
@@ -57,6 +73,28 @@ const CartScreen = () => {
         keyExtractor={(item) => item.product_id.toString()}
         contentContainerStyle={styles.flatlistContentContainer}
       />
+      <View style={styles.totalPriceContainer}>
+        <Text style={styles.totalPriceText}>
+          Total Price: ${totalPrice.toFixed(2)}
+        </Text>
+      </View>
+      <View style={styles.discountCodeContainer}>
+        <TextInput
+          style={styles.discountCodeInput}
+          value={discountCode}
+          onChangeText={setDiscountCode}
+          placeholder="Enter your promo code"
+        />
+        <TouchableOpacity
+          style={styles.applyButton}
+          // onPress={}
+        >
+          <Text style={styles.applyButtonText}>Apply</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity style={styles.checkoutButton} onPress={handleCheckout}>
+        <Text style={styles.checkoutButtonText}>Checkout</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -64,50 +102,87 @@ const CartScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    padding: 16,
   },
   itemContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#EAEAEA",
+    marginBottom: 16,
   },
   image: {
     width: 80,
     height: 80,
-    borderRadius: 8,
+    marginRight: 16,
   },
   itemDetailsContainer: {
     flex: 1,
-    marginLeft: 16,
   },
   itemName: {
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 8,
+    marginBottom: 4,
   },
   itemPrice: {
     fontSize: 14,
-    color: "#888888",
-    marginBottom: 8,
+    marginBottom: 4,
   },
   quantityContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
   quantityText: {
+    fontSize: 16,
     marginHorizontal: 8,
   },
   removeButton: {
-    marginLeft: 16,
+    marginLeft: "auto",
   },
   removeButtonText: {
+    fontSize: 14,
     color: "red",
   },
-  flatlistContentContainer: {
-    paddingBottom: 16,
+  totalPriceContainer: {
+    marginTop: 16,
+    alignItems: "center",
+  },
+  totalPriceText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  discountCodeContainer: {
+    flexDirection: "row",
+    marginTop: 16,
+  },
+  discountCodeInput: {
+    flex: 1,
+    marginRight: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    paddingHorizontal: 8,
+    fontSize: 16,
+  },
+  applyButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: "blue",
+    borderRadius: 4,
+  },
+  applyButtonText: {
+    color: "white",
+    fontSize: 16,
+  },
+  checkoutButton: {
+    marginTop: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: "green",
+    borderRadius: 4,
+    alignItems: "center",
+  },
+  checkoutButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
