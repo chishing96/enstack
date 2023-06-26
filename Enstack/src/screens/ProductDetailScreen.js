@@ -1,12 +1,32 @@
 import React, { useContext, useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import { CartContext } from "../contexts/CartContext";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
+import { FavoriteContext } from "../contexts/FavoritesContext";
 
 const ProductDetailScreen = ({ route }) => {
   const { addToCart } = useContext(CartContext);
   const { product } = route.params;
   const [quantity, setQuantity] = useState(1);
+  const { addToFavorites, removeFromFavorites, favoriteItems } =
+    useContext(FavoriteContext);
+  const [isFavorite, setIsFavorite] = useState(
+    favoriteItems.some(
+      (favoriteItem) => favoriteItem.product_id === product.product_id
+    )
+  );
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      removeFromFavorites(product.product_id);
+      setIsFavorite(false);
+      Alert.alert("Removed from favorites");
+    } else {
+      addToFavorites(product);
+      setIsFavorite(true);
+      Alert.alert("Added to favorites");
+    }
+  };
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
@@ -80,9 +100,10 @@ const ProductDetailScreen = ({ route }) => {
       </View>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
+          onPress={toggleFavorite}
           style={{
             width: 150,
-            backgroundColor: "gold",
+            backgroundColor: isFavorite ? "red" : "gold",
             padding: 8,
             borderRadius: 8,
             flexDirection: "row",
@@ -90,7 +111,9 @@ const ProductDetailScreen = ({ route }) => {
           }}
         >
           <Ionicons name="ribbon" size={24} color="black" />
-          <Text style={{ fontSize: 16, marginLeft: 8 }}>Favorites</Text>
+          <Text style={{ fontSize: 16, marginLeft: 8 }}>
+            {isFavorite ? "Remove from favorites" : "Add to favorites"}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
