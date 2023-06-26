@@ -32,7 +32,6 @@ const HomeScreen = () => {
   const [activeFilter, setActiveFilter] = useState("");
   const { cartItems } = useContext(CartContext);
   const { addToCart } = useContext(CartContext);
-  // const [cartItems, setCartItems] = useState([]);
   const cartItemCount = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
@@ -141,7 +140,10 @@ const HomeScreen = () => {
         <TouchableOpacity onPress={() => console.log("Search icon pressed")}>
           <Ionicons name="search" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Home</Text>
+        <View style={{ flexDirection: "column", alignItems: "center" }}>
+          <Text style={styles.headerText}>MAKE HOME</Text>
+          <Text style={styles.headerText}>BEAUTIFUL</Text>
+        </View>
         <TouchableOpacity
           onPress={() => {
             console.log(cartItems);

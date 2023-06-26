@@ -9,6 +9,7 @@ import ProductDetailScreen from "../screens/ProductDetailScreen";
 import CartScreen from "../screens/CartScreen";
 import OrderSuccessScreen from "../screens/OrderSuccessScreen";
 import { SafeAreaView } from "react-native";
+import { Ionicons, Fontisto, FontAwesome } from "@expo/vector-icons";
 
 const Tab = createMaterialBottomTabNavigator();
 const HomeStack = createStackNavigator();
@@ -36,11 +37,46 @@ const AppStack = () => {
         activeColor="black"
         inactiveColor="gray"
         barStyle={{ backgroundColor: "white" }}
+        screenOptions={{
+          tabBarLabel: false,
+        }}
       >
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Favorites" component={FavoritesScreen} />
-        <Tab.Screen name="Bell" component={BellScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen
+          name="HomeStack"
+          component={HomeStackScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home" color={"black"} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Favorites"
+          component={FavoritesScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Fontisto name="favorite" color={"black"} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Bell"
+          component={BellScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesome name="bell" color={"black"} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person" color={"black"} size={24} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </SafeAreaView>
   );
