@@ -24,7 +24,7 @@ const ProductDetailScreen = ({ route }) => {
     } else {
       addToFavorites(product);
       setIsFavorite(true);
-      Alert.alert("Added to favorites");
+      Alert.alert(`Added to favorites`);
     }
   };
 
@@ -43,6 +43,7 @@ const ProductDetailScreen = ({ route }) => {
       ...product,
       quantity: quantity,
     });
+    Alert.alert(`Added ${quantity} item/s to cart.`);
   };
 
   return (
