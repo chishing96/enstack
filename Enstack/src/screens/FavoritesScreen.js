@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  Button,
 } from "react-native";
 import { FavoriteContext } from "../contexts/FavoritesContext";
 import { CartContext } from "../contexts/CartContext";
@@ -57,6 +58,12 @@ const FavoritesScreen = () => {
         >
           <Text style={{ color: "white" }}>Remove from Favorites</Text>
         </TouchableOpacity>
+        <View>
+          <Button
+            title="Add all to cart"
+            onPress={() => Alert.alert("Under maintenance.")}
+          />
+        </View>
       </View>
     </View>
   );

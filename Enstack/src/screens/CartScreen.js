@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  Alert,
 } from "react-native";
 import { CartContext } from "../contexts/CartContext";
 import { Ionicons } from "@expo/vector-icons";
@@ -98,7 +99,7 @@ const CartScreen = () => {
         />
         <TouchableOpacity
           style={styles.applyButton}
-          // onPress={}
+          onPress={() => Alert.alert("Under maintenance.")}
         >
           <Text style={styles.applyButtonText}>Apply</Text>
         </TouchableOpacity>

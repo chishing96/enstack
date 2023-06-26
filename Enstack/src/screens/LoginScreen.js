@@ -61,8 +61,8 @@ const LoginScreen = () => {
 
     // Simulating API call for authentication
     setTimeout(() => {
-      // if (validateEmail() && password === "Testpassw0rd!") {
-      if (email === "1" && password === "1") {
+      if (validateEmail() && password === "Testpassw0rd!") {
+        // if (email === "1" && password === "1") {
         login();
       } else {
         setInvalidCredentialMessage("Invalid email or password.");
