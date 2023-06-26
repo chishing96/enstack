@@ -10,7 +10,9 @@ export const FavoriteProvider = ({ children }) => {
   };
 
   const removeFromFavorites = (itemId) => {
-    const updatedFavorites = favoriteItems.filter((item) => item.id !== itemId);
+    const updatedFavorites = favoriteItems.filter(
+      (item) => item.product_id !== itemId
+    );
     setFavoriteItems(updatedFavorites);
   };
 
