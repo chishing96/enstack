@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import { FavoriteContext } from "../contexts/FavoritesContext";
 import { CartContext } from "../contexts/CartContext";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 
 const FavoritesScreen = () => {
   const { favoriteItems, removeFromFavorites } = useContext(FavoriteContext);
-  const { addToCar, addAllToCart } = useContext(CartContext);
+  const { addToCart, addAllToCart } = useContext(CartContext);
 
   const handleAddAllToCart = () => {
     addAllToCart(favoriteItems);
@@ -35,40 +36,45 @@ const FavoritesScreen = () => {
   }
 
   const renderFavoriteItem = ({ item }) => (
-    <View
-      style={{ flexDirection: "row", alignItems: "center", marginBottom: 16 }}
-    >
-      <Image
-        source={item.main_image}
-        style={{ width: 100, height: 100, borderRadius: 10, marginRight: 16 }}
-      />
-      <View>
-        <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 8 }}>
-          {item.name}
-        </Text>
-        <Text style={{ fontSize: 14, marginBottom: 8 }}>${item.price}</Text>
-        <TouchableOpacity
-          style={styles.favoriteItemButton}
-          onPress={() => handleAddToCart(item)}
-        >
-          <Text style={styles.favoriteItemButtonText}>Add to Cart</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "red",
-            paddingVertical: 8,
-            paddingHorizontal: 12,
-            borderRadius: 8,
-          }}
-          onPress={() => removeFromFavorites(item.product_id)}
-        >
-          <Text style={{ color: "white" }}>Remove from Favorites</Text>
-        </TouchableOpacity>
+    <View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginBottom: 16,
+          justifyContent: "space-evenly",
+          height: 150,
+        }}
+      >
+        <Image
+          source={item.main_image}
+          style={{ width: 100, height: 100, borderRadius: 10, marginRight: 16 }}
+        />
         <View>
-          <Button
-            title="Add all to cart"
-            onPress={() => handleAddAllToCart()}
-          />
+          <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 8 }}>
+            {item.name}
+          </Text>
+          <Text style={{ fontSize: 14, marginBottom: 8 }}>${item.price}</Text>
+        </View>
+        <View
+          style={{
+            justifyContent: "space-around",
+            width: 30,
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => removeFromFavorites(item.product_id)}
+          >
+            <AntDesign name="closecircleo" size={24} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.favoriteItemButton}
+            onPress={() => handleAddToCart(item)}
+          >
+            <MaterialIcons name="shopping-bag" size={24} color="black" />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -82,6 +88,24 @@ const FavoritesScreen = () => {
         keyExtractor={(item) => item.product_id.toString()}
         contentContainerStyle={{ paddingBottom: 16 }}
       />
+      <View>
+        <View>
+          <TouchableOpacity
+            style={{
+              height: 50,
+              backgroundColor: "#28282B",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 5,
+            }}
+            onPress={() => handleAddAllToCart()}
+          >
+            <Text style={{ color: "white", fontWeight: "400", fontSize: 18 }}>
+              Add all to cart
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
@@ -108,11 +132,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   favoriteItemButton: {
-    backgroundColor: "green",
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    marginRight: 8,
+    backgroundColor: "gray",
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 30,
+    borderRadius: 5,
   },
   favoriteItemButtonText: {
     fontSize: 14,
@@ -123,6 +148,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: 50,
   },
   removeFromFavoritesButtonText: {
     fontSize: 14,
