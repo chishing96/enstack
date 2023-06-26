@@ -1,5 +1,12 @@
 import React, { useContext, useState } from "react";
-import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+} from "react-native";
 import { CartContext } from "../contexts/CartContext";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
 import { FavoriteContext } from "../contexts/FavoritesContext";
@@ -47,7 +54,7 @@ const ProductDetailScreen = ({ route }) => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 16 }}>
+    <ScrollView style={{ flex: 1, padding: 16 }}>
       <View
         style={{
           flexDirection: "row",
@@ -58,53 +65,56 @@ const ProductDetailScreen = ({ route }) => {
         <Image
           source={product.main_image}
           style={{
-            width: "50%",
-            aspectRatio: 1,
-            borderRadius: 20,
+            flex: 1,
+            width: "80%",
+            height: 400,
+            borderBottomLeftRadius: 20,
             marginBottom: 16,
           }}
         />
-        <View style={{ flex: 1, marginLeft: 16 }}>
-          <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 8 }}>
-            {product.name}
-          </Text>
-          <Text style={{ fontSize: 16, marginBottom: 8 }}>
-            ${product.price}
+      </View>
+      <View style={{ flex: 1, marginLeft: 16 }}>
+        <Text style={{ fontSize: 28, fontWeight: "400", marginBottom: 8 }}>
+          {product.name}
+        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={{ fontSize: 32, marginBottom: 8, fontWeight: "800" }}>
+            $ {product.price}
           </Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <TouchableOpacity onPress={handleDecrement}>
-              <Ionicons name="remove-circle" size={24} color="black" />
+            <TouchableOpacity onPress={handleIncrement}>
+              <Ionicons name="add-circle" size={24} color="black" />
             </TouchableOpacity>
             <Text style={{ fontSize: 16, marginHorizontal: 8 }}>
               {quantity}
             </Text>
-            <TouchableOpacity onPress={handleIncrement}>
-              <Ionicons name="add-circle" size={24} color="black" />
+            <TouchableOpacity onPress={handleDecrement}>
+              <Ionicons name="remove-circle" size={24} color="black" />
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignContent: "center",
-              marginTop: 5,
-            }}
-          >
-            <EvilIcons name="star" size={24} color="black" />
-            <Text style={{ fontSize: 16, marginBottom: 8 }}>
-              {product.rating}
-            </Text>
-          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignContent: "center",
+            marginTop: 5,
+          }}
+        >
+          <EvilIcons name="star" size={24} color="black" />
           <Text style={{ fontSize: 16, marginBottom: 8 }}>
-            {product.description}
+            {product.rating}
           </Text>
         </View>
+        <Text style={{ fontSize: 16, marginBottom: 8, color: "gray" }}>
+          {product.description}
+        </Text>
       </View>
       <View
         style={{
-          flex: 1,
           flexDirection: "row",
           alignSelf: "center",
           alignItems: "center",
+          marginBottom: 50,
         }}
       >
         <TouchableOpacity
@@ -115,6 +125,9 @@ const ProductDetailScreen = ({ route }) => {
             borderRadius: 8,
             flexDirection: "row",
             alignItems: "center",
+            justifyContent: "center",
+            height: 50,
+            width: 50,
           }}
         >
           <Ionicons name="ribbon" size={24} color="black" />
@@ -125,14 +138,18 @@ const ProductDetailScreen = ({ route }) => {
             padding: 12,
             alignItems: "center",
             borderRadius: 8,
-            marginTop: 16,
+            margin: 5,
+            width: "80%",
+            height: 50,
+            justifyContent: "center",
+            backgroundColor: "#28282B",
           }}
           onPress={handleAddToCart}
         >
           <Text style={{ fontSize: 16, color: "white" }}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

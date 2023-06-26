@@ -27,7 +27,8 @@ export const productItemsData = [
     product_images: [lamp2, lamp3],
     priority: 1,
     product_id: "00000001",
-    description: "Lorem Ipsum...",
+    description:
+      "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
     rating: 4.75,
     review_count: 50,
     stock: 5,
@@ -40,7 +41,8 @@ export const productItemsData = [
     product_images: [table2, table3],
     priority: 1,
     product_id: "00000002",
-    description: "Lorem Ipsum...",
+    description:
+      "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
     rating: 4.1,
     review_count: 10,
     stock: 50,
@@ -53,7 +55,8 @@ export const productItemsData = [
     product_images: [armchair2, armchair3],
     priority: 0,
     product_id: "00000003",
-    description: "Lorem Ipsum...",
+    description:
+      "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
     rating: 1.1,
     review_count: 100,
     stock: 0,
@@ -66,7 +69,8 @@ export const productItemsData = [
     product_images: [bed2, bed3],
     priority: 10,
     product_id: "00000004",
-    description: "Lorem Ipsum...",
+    description:
+      "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
     rating: 0,
     review_count: 0,
     stock: 2,
@@ -79,7 +83,8 @@ export const productItemsData = [
     product_images: [chair2, chair3],
     priority: 12,
     product_id: "00000005",
-    description: "Lorem Ipsum...",
+    description:
+      "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
     rating: 0,
     review_count: 0,
     stock: 0,
@@ -92,7 +97,8 @@ export const productItemsData = [
     product_images: [table2, table3],
     priority: 0,
     product_id: "00000006",
-    description: "Lorem Ipsum...",
+    description:
+      "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
     rating: 5.0,
     review_count: 1000,
     stock: 2,
@@ -105,7 +111,8 @@ export const productItemsData = [
     product_images: [armchair2, armchair3],
     priority: 0,
     product_id: "00000007",
-    description: "Lorem Ipsum...",
+    description:
+      "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
     rating: 3.0,
     review_count: 1,
     stock: 1,
